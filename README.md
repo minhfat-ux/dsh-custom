@@ -1,5 +1,7 @@
 # dsh-custom — customization toolkit for DeepSeek Harness
 
+English | [Tiếng Việt](README.vi.md) | [中文](README.zh.md)
+
 An **unofficial** customization set for [DeepSeek Harness](https://github.com/deepseek-ai/deepseek-harness) (`dsh`)
 0.1.5-rc.1. Not affiliated with or endorsed by DeepSeek.
 
