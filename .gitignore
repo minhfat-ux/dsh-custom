@@ -2,6 +2,9 @@
 # real API key, sessions, and profile state: never publish it.
 .dsh-dev/
 
+# Per-workspace rollback checkpoints written by the git-rollback plugin.
+.dsh/
+
 # The upstream checkout is its own git repository with its own remote.
 deepseek-harness/
 
