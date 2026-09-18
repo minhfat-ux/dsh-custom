@@ -1,0 +1,7 @@
+{
+  "title": "Ảnh",
+  "preview": "Xem trước ảnh: {name}",
+  "loading": "Đang mở ảnh…",
+  "failed": "Không thể hiển thị ảnh này.",
+  "unsupported": "Xem trước ảnh cần toàn bộ nội dung tệp."
+}

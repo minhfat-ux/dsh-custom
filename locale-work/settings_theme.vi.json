@@ -1,0 +1,11 @@
+{
+  "appearance.title": "Diện mạo",
+  "appearance.light": "Sáng",
+  "appearance.dark": "Tối",
+  "appearance.system": "Hệ thống",
+  "fontSize.title": "Cỡ chữ",
+  "fontSize.description": "Chỉ ảnh hưởng đến nội dung hội thoại",
+  "fontSize.unit": "px",
+  "fontSize.increase": "Tăng cỡ chữ",
+  "fontSize.decrease": "Giảm cỡ chữ"
+}

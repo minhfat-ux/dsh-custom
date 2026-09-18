@@ -1,0 +1,20 @@
+# DeepSeek Harness sau một domain công khai (mô hình B).
+#
+# Caddy lo TLS rồi forward vào listener loopback. Caddy GIỮ NGUYÊN Host header
+# gốc theo mặc định — đây là điều kiện bắt buộc, không phải tùy chọn:
+# fence /api so Origin với Host, mà trình duyệt gửi Origin trên MỌI call API.
+#
+# TUYỆT ĐỐI KHÔNG thêm dòng này:
+#     header_up Host {upstream_hostport}
+# Nó biến proxy của bạn thành kiểu nginx-rewrite, và mọi call API sẽ bị 403
+# trong khi trang vẫn tải bình thường (đã kiểm chứng bằng thực nghiệm).
+
+dsh.example.test {
+	encode zstd gzip
+
+	reverse_proxy 127.0.0.1:8095 {
+		# /api là server-sent events. Tắt đệm response để frame tới browser
+		# ngay khi được sinh ra thay vì bị giữ trong buffer của proxy.
+		flush_interval -1
+	}
+}

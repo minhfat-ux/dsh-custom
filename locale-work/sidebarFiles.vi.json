@@ -1,0 +1,15 @@
+{
+  "type.label": "Tệp",
+  "guide.title": "Tệp trong không gian làm việc",
+  "guide.description": "Duyệt các tệp trong không gian làm việc của phiên này",
+  "loading": "Đang đọc…",
+  "empty": "Thư mục trống",
+  "truncated": "Quá nhiều mục, chỉ hiển thị một phần.",
+  "noWorkspace": "Phiên này không có thư mục không gian làm việc.",
+  "reload": "Tải lại",
+  "entry.other": "Không phải tệp hay thư mục nên không thể mở.",
+  "error.notFound": "Thư mục đó không còn tồn tại. Có thể đã bị di chuyển hoặc xóa.",
+  "error.outsideWorkspace": "Thư mục đó nằm ngoài không gian làm việc nên thanh bên sẽ không đọc.",
+  "error.notDirectory": "Đó không phải là thư mục.",
+  "error.unavailable": "Đọc thất bại: {message}"
+}

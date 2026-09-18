@@ -1,0 +1,23 @@
+{
+  "chrome.expand": "Mở thanh bên",
+  "chrome.expandAria": "Mở thanh bên phải",
+  "chrome.collapse": "Thu gọn thanh bên",
+  "chrome.collapseAria": "Thu gọn thanh bên phải",
+  "chrome.toFullscreen": "Toàn màn hình",
+  "chrome.exitFullscreen": "Thoát toàn màn hình",
+  "dock.emptyPane": "Ngăn trống",
+  "dock.splitPane": "Chia",
+  "dock.splitPaneDisabled": "Giới hạn là hai ngăn",
+  "dock.splitPaneNarrow": "Không đủ chiều rộng để chia, hãy mở rộng thanh bên",
+  "dock.closeTab": "Đóng",
+  "dock.addTab": "Tab mới",
+  "dock.dockFloat": "Đưa trở lại thanh bên",
+  "dock.closeFloat": "Đóng",
+  "dock.drop.center": "Di chuyển đến đây",
+  "dock.drop.left": "Thêm ngăn chia bên trái",
+  "dock.drop.right": "Thêm ngăn chia bên phải",
+  "dock.drop.top": "Thêm ngăn chia phía trên",
+  "dock.drop.bottom": "Thêm ngăn chia phía dưới",
+  "tab.guide.title": "Bắt đầu",
+  "tab.unavailable": "Chưa có gì ở đây xem được loại nội dung này."
+}

@@ -1,0 +1,20 @@
+{
+  "trigger.one": "{count} nhắc nhở",
+  "trigger.other": "{count} nhắc nhở",
+  "list.aria": "Nhắc nhở đang hoạt động",
+  "status.scheduled": "Đã lên lịch",
+  "status.overdue": "Quá hạn",
+  "frequency.once": "Một lần",
+  "frequency.every": "Mỗi {value} {unit}",
+  "unit.day.one": "ngày",
+  "unit.day.other": "ngày",
+  "unit.hour.one": "giờ",
+  "unit.hour.other": "giờ",
+  "unit.minute.one": "phút",
+  "unit.minute.other": "phút",
+  "unit.second.one": "giây",
+  "unit.second.other": "giây",
+  "relative.now": "Đến hạn ngay",
+  "relative.future": "sau {value} {unit}",
+  "relative.overdue": "quá hạn {value} {unit}"
+}

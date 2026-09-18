@@ -1,0 +1,14 @@
+{
+  "trigger": "Cài đặt",
+  "title": "Cài đặt",
+  "close": "Đóng",
+  "openDocument": "Mở tệp cấu hình",
+  "openDocument.error": "Không thể mở tệp cấu hình",
+  "general.nav": "Chung",
+  "connection.error": "Mất kết nối",
+  "connection.retry": "Kết nối lại ngay",
+  "connection.connecting": "Đang kết nối lại",
+  "connection.connected": "Đã kết nối",
+  "connection.reconnect": "Mất kết nối, kết nối lại ngay",
+  "connection.restart": "Đang tự động kết nối lại, kết nối lại ngay"
+}

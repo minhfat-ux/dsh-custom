@@ -1,0 +1,7 @@
+# `* text=auto eol=lf` keeps the published tree LF-only regardless of the
+# authoring machine. PowerShell scripts stay CRLF for Windows-first tooling.
+* text=auto eol=lf
+*.ps1 text eol=crlf
+*.png binary
+*.woff binary
+*.woff2 binary

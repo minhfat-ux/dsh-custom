@@ -1,0 +1,22 @@
+{
+  "command.description": "Chọn mô hình cho cuộc hội thoại này",
+  "option.loadError": "Không tải được danh mục: {message}",
+  "option.deepseekV4Flash.description": "Nhanh, hiệu quả và tiết kiệm; phù hợp với tác vụ tập trung, thường ngày hoặc song song.",
+  "option.deepseekV4Pro.description": "Lập trình Agent, kiến thức và suy luận khó mạnh hơn; phù hợp với tác vụ phức tạp hoặc đòi hỏi chất lượng cao với chi phí cao hơn.",
+  "trigger.fallback": "Chọn mô hình",
+  "trigger.loading": "Đang tải mô hình…",
+  "trigger.selectAria": "Chọn mô hình",
+  "trigger.aria": "Chọn mô hình, hiện tại {model}",
+  "trigger.ariaEffort": "Chọn mô hình, hiện tại {model}, mức suy luận {effort}",
+  "menu.aria": "Mô hình và mức suy luận",
+  "menu.model": "Mô hình",
+  "menu.effort": "Mức suy luận",
+  "effort.providerDefault": "Mặc định",
+  "status.loading": "Đang làm mới danh sách mô hình…",
+  "error.action": "Thao tác mô hình thất bại: {message}",
+  "action.reload": "Tải lại",
+  "warning.groupLoad": "Không tải được {name}: {message}",
+  "empty.models": "Không có mô hình nào.",
+  "blocked.composer": "Mô hình này không khả dụng — chọn một mô hình để tiếp tục",
+  "empty.efforts": "Mô hình này không cung cấp mức suy luận nào."
+}

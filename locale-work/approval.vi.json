@@ -1,0 +1,7 @@
+{
+  "waiting": "Đang chờ phê duyệt",
+  "detail.aria": "Chi tiết phê duyệt",
+  "escalation": "Công cụ {toolName} yêu cầu quyền thực thi đặc biệt",
+  "reject": "Từ chối",
+  "allowOnce": "Cho phép một lần"
+}

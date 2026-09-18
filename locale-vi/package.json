@@ -1,0 +1,29 @@
+{
+  "name": "dsh-locale-vi",
+  "version": "0.1.0",
+  "description": "Vietnamese language pack for the DeepSeek Harness Web GUI: registers a `vi` locale and translates every shipped client namespace.",
+  "type": "module",
+  "main": "lib/index.js",
+  "exports": {
+    ".": "./lib/index.js",
+    "./client": "./lib/client.js"
+  },
+  "files": [
+    "lib"
+  ],
+  "dsh": {
+    "client": {
+      "platform": "web",
+      "inject": []
+    }
+  },
+  "keywords": [
+    "dsh",
+    "deepseek-harness",
+    "dsh-plugin",
+    "locale",
+    "vietnamese",
+    "i18n"
+  ],
+  "license": "MIT"
+}

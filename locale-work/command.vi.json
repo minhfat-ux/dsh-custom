@@ -1,0 +1,16 @@
+{
+  "description.compact": "Nén lịch sử hội thoại cũ hơn",
+  "description.export": "Tải nhật ký Phiên này xuống dưới dạng tệp ZIP",
+  "description.feedback": "ghi nhận phản hồi về phiên này",
+  "description.goal": "đặt hoặc xem mục tiêu cho một tác vụ chạy dài",
+  "description.permission": "Chuyển đặt trước quyền (chế độ sandbox + chính sách phê duyệt)",
+  "description.plan": "Vào hoặc rời chế độ kế hoạch",
+  "search.placeholder": "Tìm kiếm…",
+  "search.aria": "Lọc tùy chọn",
+  "status.loading": "Đang tải tùy chọn…",
+  "status.applying": "Đang áp dụng…",
+  "status.empty": "Không có tùy chọn",
+  "overlay.aria": "Tùy chọn /{command}",
+  "listbox.aria": "Kết quả khớp /{command}",
+  "notice.attachmentsUnsupported": "/{command} không chấp nhận tệp đính kèm; hãy xóa chúng trước"
+}

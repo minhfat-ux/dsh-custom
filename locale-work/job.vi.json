@@ -1,0 +1,17 @@
+{
+  "count.live.one": "{count} tác vụ nền đang chạy",
+  "count.live.other": "{count} tác vụ nền đang chạy",
+  "count.idle.one": "{count} tác vụ nền",
+  "count.idle.other": "{count} tác vụ nền",
+  "list.aria": "Tác vụ nền",
+  "status.running": "đang chạy",
+  "status.stopping": "đang dừng",
+  "status.completed": "hoàn tất",
+  "status.killed": "đã hủy",
+  "status.failed": "thất bại",
+  "duration.seconds": "{seconds}s",
+  "duration.minutes": "{minutes}m {seconds}s",
+  "duration.hours": "{hours}h {minutes}m",
+  "duration.title.live": "Đã chạy {duration}",
+  "duration.title.done": "Mất {duration}"
+}

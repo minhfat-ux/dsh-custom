@@ -1,0 +1,8 @@
+{
+  "chip.label": "Kế hoạch",
+  "chip.on.aria": "Chế độ kế hoạch đang bật, nhấn để tắt",
+  "chip.on.title": "Chế độ kế hoạch đang bật — nhấp để tắt (/plan off)",
+  "chip.off.aria": "Chế độ kế hoạch đang tắt, nhấn để bật",
+  "chip.off.title": "Chế độ kế hoạch đang tắt — nhấp để bật (/plan)",
+  "chip.exitFailed": "Không thể thoát chế độ kế hoạch"
+}

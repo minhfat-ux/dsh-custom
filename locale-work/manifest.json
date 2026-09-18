@@ -1,0 +1,236 @@
+[
+  {
+    "ns": "trajectory",
+    "keys": 175,
+    "source": "C:\\Users\\Minhn\\DSH_Customize\\locale-work\\trajectory.source.json",
+    "target": "C:\\Users\\Minhn\\DSH_Customize\\locale-work\\trajectory.vi.json"
+  },
+  {
+    "ns": "conversation",
+    "keys": 159,
+    "source": "C:\\Users\\Minhn\\DSH_Customize\\locale-work\\conversation.source.json",
+    "target": "C:\\Users\\Minhn\\DSH_Customize\\locale-work\\conversation.vi.json"
+  },
+  {
+    "ns": "chat",
+    "keys": 103,
+    "source": "C:\\Users\\Minhn\\DSH_Customize\\locale-work\\chat.source.json",
+    "target": "C:\\Users\\Minhn\\DSH_Customize\\locale-work\\chat.vi.json"
+  },
+  {
+    "ns": "settings.models",
+    "keys": 100,
+    "source": "C:\\Users\\Minhn\\DSH_Customize\\locale-work\\settings_models.source.json",
+    "target": "C:\\Users\\Minhn\\DSH_Customize\\locale-work\\settings_models.vi.json"
+  },
+  {
+    "ns": "workspace",
+    "keys": 63,
+    "source": "C:\\Users\\Minhn\\DSH_Customize\\locale-work\\workspace.source.json",
+    "target": "C:\\Users\\Minhn\\DSH_Customize\\locale-work\\workspace.vi.json"
+  },
+  {
+    "ns": "settings.plugins",
+    "keys": 52,
+    "source": "C:\\Users\\Minhn\\DSH_Customize\\locale-work\\settings_plugins.source.json",
+    "target": "C:\\Users\\Minhn\\DSH_Customize\\locale-work\\settings_plugins.vi.json"
+  },
+  {
+    "ns": "settings.agentPreset",
+    "keys": 51,
+    "source": "C:\\Users\\Minhn\\DSH_Customize\\locale-work\\settings_agentPreset.source.json",
+    "target": "C:\\Users\\Minhn\\DSH_Customize\\locale-work\\settings_agentPreset.vi.json"
+  },
+  {
+    "ns": "open-in-app",
+    "keys": 39,
+    "source": "C:\\Users\\Minhn\\DSH_Customize\\locale-work\\open-in-app.source.json",
+    "target": "C:\\Users\\Minhn\\DSH_Customize\\locale-work\\open-in-app.vi.json"
+  },
+  {
+    "ns": "common",
+    "keys": 39,
+    "source": "C:\\Users\\Minhn\\DSH_Customize\\locale-work\\common.source.json",
+    "target": "C:\\Users\\Minhn\\DSH_Customize\\locale-work\\common.vi.json"
+  },
+  {
+    "ns": "deliverables",
+    "keys": 38,
+    "source": "C:\\Users\\Minhn\\DSH_Customize\\locale-work\\deliverables.source.json",
+    "target": "C:\\Users\\Minhn\\DSH_Customize\\locale-work\\deliverables.vi.json"
+  },
+  {
+    "ns": "subagent",
+    "keys": 37,
+    "source": "C:\\Users\\Minhn\\DSH_Customize\\locale-work\\subagent.source.json",
+    "target": "C:\\Users\\Minhn\\DSH_Customize\\locale-work\\subagent.vi.json"
+  },
+  {
+    "ns": "settings.pluginInventory",
+    "keys": 36,
+    "source": "C:\\Users\\Minhn\\DSH_Customize\\locale-work\\settings_pluginInventory.source.json",
+    "target": "C:\\Users\\Minhn\\DSH_Customize\\locale-work\\settings_pluginInventory.vi.json"
+  },
+  {
+    "ns": "sidebarRight",
+    "keys": 21,
+    "source": "C:\\Users\\Minhn\\DSH_Customize\\locale-work\\sidebarRight.source.json",
+    "target": "C:\\Users\\Minhn\\DSH_Customize\\locale-work\\sidebarRight.vi.json"
+  },
+  {
+    "ns": "feedback",
+    "keys": 20,
+    "source": "C:\\Users\\Minhn\\DSH_Customize\\locale-work\\feedback.source.json",
+    "target": "C:\\Users\\Minhn\\DSH_Customize\\locale-work\\feedback.vi.json"
+  },
+  {
+    "ns": "model",
+    "keys": 20,
+    "source": "C:\\Users\\Minhn\\DSH_Customize\\locale-work\\model.source.json",
+    "target": "C:\\Users\\Minhn\\DSH_Customize\\locale-work\\model.vi.json"
+  },
+  {
+    "ns": "schedule.catalog",
+    "keys": 18,
+    "source": "C:\\Users\\Minhn\\DSH_Customize\\locale-work\\schedule_catalog.source.json",
+    "target": "C:\\Users\\Minhn\\DSH_Customize\\locale-work\\schedule_catalog.vi.json"
+  },
+  {
+    "ns": "sidebarDocumentPreview",
+    "keys": 18,
+    "source": "C:\\Users\\Minhn\\DSH_Customize\\locale-work\\sidebarDocumentPreview.source.json",
+    "target": "C:\\Users\\Minhn\\DSH_Customize\\locale-work\\sidebarDocumentPreview.vi.json"
+  },
+  {
+    "ns": "workflowRun",
+    "keys": 18,
+    "source": "C:\\Users\\Minhn\\DSH_Customize\\locale-work\\workflowRun.source.json",
+    "target": "C:\\Users\\Minhn\\DSH_Customize\\locale-work\\workflowRun.vi.json"
+  },
+  {
+    "ns": "job",
+    "keys": 15,
+    "source": "C:\\Users\\Minhn\\DSH_Customize\\locale-work\\job.source.json",
+    "target": "C:\\Users\\Minhn\\DSH_Customize\\locale-work\\job.vi.json"
+  },
+  {
+    "ns": "question",
+    "keys": 15,
+    "source": "C:\\Users\\Minhn\\DSH_Customize\\locale-work\\question.source.json",
+    "target": "C:\\Users\\Minhn\\DSH_Customize\\locale-work\\question.vi.json"
+  },
+  {
+    "ns": "command",
+    "keys": 14,
+    "source": "C:\\Users\\Minhn\\DSH_Customize\\locale-work\\command.source.json",
+    "target": "C:\\Users\\Minhn\\DSH_Customize\\locale-work\\command.vi.json"
+  },
+  {
+    "ns": "sidebarFiles",
+    "keys": 13,
+    "source": "C:\\Users\\Minhn\\DSH_Customize\\locale-work\\sidebarFiles.source.json",
+    "target": "C:\\Users\\Minhn\\DSH_Customize\\locale-work\\sidebarFiles.vi.json"
+  },
+  {
+    "ns": "goal",
+    "keys": 12,
+    "source": "C:\\Users\\Minhn\\DSH_Customize\\locale-work\\goal.source.json",
+    "target": "C:\\Users\\Minhn\\DSH_Customize\\locale-work\\goal.vi.json"
+  },
+  {
+    "ns": "settings.permission",
+    "keys": 12,
+    "source": "C:\\Users\\Minhn\\DSH_Customize\\locale-work\\settings_permission.source.json",
+    "target": "C:\\Users\\Minhn\\DSH_Customize\\locale-work\\settings_permission.vi.json"
+  },
+  {
+    "ns": "settings",
+    "keys": 12,
+    "source": "C:\\Users\\Minhn\\DSH_Customize\\locale-work\\settings.source.json",
+    "target": "C:\\Users\\Minhn\\DSH_Customize\\locale-work\\settings.vi.json"
+  },
+  {
+    "ns": "reference",
+    "keys": 10,
+    "source": "C:\\Users\\Minhn\\DSH_Customize\\locale-work\\reference.source.json",
+    "target": "C:\\Users\\Minhn\\DSH_Customize\\locale-work\\reference.vi.json"
+  },
+  {
+    "ns": "slash.menu",
+    "keys": 9,
+    "source": "C:\\Users\\Minhn\\DSH_Customize\\locale-work\\slash_menu.source.json",
+    "target": "C:\\Users\\Minhn\\DSH_Customize\\locale-work\\slash_menu.vi.json"
+  },
+  {
+    "ns": "sidebarPdf",
+    "keys": 9,
+    "source": "C:\\Users\\Minhn\\DSH_Customize\\locale-work\\sidebarPdf.source.json",
+    "target": "C:\\Users\\Minhn\\DSH_Customize\\locale-work\\sidebarPdf.vi.json"
+  },
+  {
+    "ns": "settings.theme",
+    "keys": 9,
+    "source": "C:\\Users\\Minhn\\DSH_Customize\\locale-work\\settings_theme.source.json",
+    "target": "C:\\Users\\Minhn\\DSH_Customize\\locale-work\\settings_theme.vi.json"
+  },
+  {
+    "ns": "permission.access",
+    "keys": 8,
+    "source": "C:\\Users\\Minhn\\DSH_Customize\\locale-work\\permission_access.source.json",
+    "target": "C:\\Users\\Minhn\\DSH_Customize\\locale-work\\permission_access.vi.json"
+  },
+  {
+    "ns": "skill",
+    "keys": 7,
+    "source": "C:\\Users\\Minhn\\DSH_Customize\\locale-work\\skill.source.json",
+    "target": "C:\\Users\\Minhn\\DSH_Customize\\locale-work\\skill.vi.json"
+  },
+  {
+    "ns": "plan",
+    "keys": 6,
+    "source": "C:\\Users\\Minhn\\DSH_Customize\\locale-work\\plan.source.json",
+    "target": "C:\\Users\\Minhn\\DSH_Customize\\locale-work\\plan.vi.json"
+  },
+  {
+    "ns": "approval",
+    "keys": 5,
+    "source": "C:\\Users\\Minhn\\DSH_Customize\\locale-work\\approval.source.json",
+    "target": "C:\\Users\\Minhn\\DSH_Customize\\locale-work\\approval.vi.json"
+  },
+  {
+    "ns": "sidebar",
+    "keys": 5,
+    "source": "C:\\Users\\Minhn\\DSH_Customize\\locale-work\\sidebar.source.json",
+    "target": "C:\\Users\\Minhn\\DSH_Customize\\locale-work\\sidebar.vi.json"
+  },
+  {
+    "ns": "sidebarImage",
+    "keys": 5,
+    "source": "C:\\Users\\Minhn\\DSH_Customize\\locale-work\\sidebarImage.source.json",
+    "target": "C:\\Users\\Minhn\\DSH_Customize\\locale-work\\sidebarImage.vi.json"
+  },
+  {
+    "ns": "documentHtml",
+    "keys": 4,
+    "source": "C:\\Users\\Minhn\\DSH_Customize\\locale-work\\documentHtml.source.json",
+    "target": "C:\\Users\\Minhn\\DSH_Customize\\locale-work\\documentHtml.vi.json"
+  },
+  {
+    "ns": "documentMarkdown",
+    "keys": 4,
+    "source": "C:\\Users\\Minhn\\DSH_Customize\\locale-work\\documentMarkdown.source.json",
+    "target": "C:\\Users\\Minhn\\DSH_Customize\\locale-work\\documentMarkdown.vi.json"
+  },
+  {
+    "ns": "sidebarCodePreview",
+    "keys": 3,
+    "source": "C:\\Users\\Minhn\\DSH_Customize\\locale-work\\sidebarCodePreview.source.json",
+    "target": "C:\\Users\\Minhn\\DSH_Customize\\locale-work\\sidebarCodePreview.vi.json"
+  },
+  {
+    "ns": "settings.locale",
+    "keys": 1,
+    "source": "C:\\Users\\Minhn\\DSH_Customize\\locale-work\\settings_locale.source.json",
+    "target": "C:\\Users\\Minhn\\DSH_Customize\\locale-work\\settings_locale.vi.json"
+  }
+]

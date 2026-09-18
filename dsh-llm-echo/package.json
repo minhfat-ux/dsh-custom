@@ -1,0 +1,33 @@
+{
+  "name": "dsh-llm-echo",
+  "version": "0.1.0",
+  "description": "Offline echo LLM adapter for the DeepSeek Harness: a local provider route that streams a canned answer so the GUI and the agent loop can be exercised without an API key.",
+  "type": "module",
+  "main": "lib/index.js",
+  "exports": {
+    ".": "./lib/index.js"
+  },
+  "files": [
+    "lib"
+  ],
+  "keywords": [
+    "dsh",
+    "deepseek-harness",
+    "dsh-plugin",
+    "llm",
+    "adapter",
+    "offline"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "@deepseek-ai/schemastery": "^3.18.2"
+  },
+  "peerDependencies": {
+    "@deepseek-ai/cordis": "^4.0.2"
+  },
+  "peerDependenciesMeta": {
+    "@deepseek-ai/cordis": {
+      "optional": true
+    }
+  }
+}

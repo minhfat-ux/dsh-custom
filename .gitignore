@@ -1,0 +1,15 @@
+# Harness home created for the isolated fork. It holds .credentials.yaml with a
+# real API key, sessions, and profile state: never publish it.
+.dsh-dev/
+
+# The upstream checkout is its own git repository with its own remote.
+deepseek-harness/
+
+# Corepack's downloaded package-manager cache.
+.corepack/
+
+# Installed dependencies in the out-of-tree packages.
+node_modules/
+
+# Transient verification output.
+*.log

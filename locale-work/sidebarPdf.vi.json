@@ -1,0 +1,11 @@
+{
+  "title": "PDF",
+  "pageImage": "Trang PDF {page}",
+  "loading": "Đang mở PDF…",
+  "rendering": "Đang kết xuất trang…",
+  "failed": "Không thể hiển thị PDF: {message}",
+  "password": "PDF này yêu cầu mật khẩu; không hỗ trợ xem trước tệp có mật khẩu.",
+  "workerFailed": "Tiến trình kết xuất PDF không thể tiếp tục. Vui lòng thử lại.",
+  "unsupported": "Xem trước PDF cần toàn bộ nội dung tệp.",
+  "retry": "Thử lại"
+}
