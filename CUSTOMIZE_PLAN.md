@@ -883,7 +883,7 @@ Bài học: các **default của abstract class là một phần hợp đồng r
 
 **Triệu chứng:** mỗi lần agent gọi tool, một cửa sổ command nhấp nháy rồi tắt. **Nguyên nhân:** Windows cấp một console mới cho tiến trình console khi tiến trình cha **không có** console — đúng trường hợp host là GUI/extension. `CREATE_SUSPENDED` không ngăn được việc đó; phải có `CREATE_NO_WINDOW` (`0x08000000`), còn `child_process.spawn` thì cần `windowsHide: true`.
 
-Bản 0.1.5-rc.2 thiếu cờ ở **bốn** đường:
+Bản 0.1.5-rc.2 thiếu cờ ở **năm** đường:
 
 | # | Đường spawn | File nguồn | Trước | Sau |
 |---|---|---|---|---|
@@ -891,6 +891,9 @@ Bản 0.1.5-rc.2 thiếu cờ ở **bốn** đường:
 | 2 | `spawnInheritedJobProcess` → `CreateProcessAsUserW` | `process.ts:509` | `CREATE_SUSPENDED` | `… \| CREATE_NO_WINDOW` |
 | 3 | `spawnCurrentTokenJobProcess` → `CreateProcessW` | `process.ts:534` | `… \| CREATE_UNICODE_ENVIRONMENT` | `… \| CREATE_NO_WINDOW` |
 | 4 | runner Windows | `subprocess-local/src/windows-job.ts:144` | (không có) | `windowsHide: true` |
+| 5 | trình mở trình duyệt | `bundle/web-app/src/index.ts:178` | (không có) | `windowsHide: true` |
+
+Đường 5 chỉ lộ ra khi chạy `tools/audit-windows-spawns.mjs` quét cả cây đã cài: `spawnBrowserLauncher` spawn `node --eval` cho opener, nên **chỉ cần `dsh web` mở trình duyệt là đã nháy một cửa sổ** — độc lập với tool call. Đường sandbox Windows (`windows-acl`) không cần vá riêng: `windowsAclRunnerArgv` chỉ dựng argv `[node, runner]` rồi để subprocess capability spawn, nên nó đi đúng qua đường 4 và runner lại đi qua đường 1–3.
 
 Cố ý **không** đụng: `linux-scope.ts:477` cũng gọi `runnerStdio(spec, false)` nhưng đó là đường Linux (`windowsHide` vô nghĩa ở đó), và `nodePty.spawn` là terminal tương tác — terminal thì phải có console.
 
@@ -907,8 +910,10 @@ Cố ý **không** đụng: `linux-scope.ts:477` cũng gọi `runnerStdio(spec, 
 **Bằng chứng**
 
 - Test package: `vitest run packages/subprocess/win32-process` → **55/55 PASS**; các spec assert đúng cờ truyền cho từng entry point (trước khi sửa thì đỏ).
-- Diff bản cài với tarball published rc.2: **đúng 4 hunk**, không có sửa lỗi phụ nào.
-- `tools/patch-dsh-nopopup.mjs` chạy trên tarball gốc tạo ra file **byte-identical** (SHA-256 trùng) với bản đã vá thủ công; chạy lần hai không đổi gì (idempotent).
-- `--check` trên bản cài thật: cả hai file báo "already patched".
+- Diff bản cài với tarball published rc.2 (`dsh-win32-process`, `dsh-subprocess-local`, `dsh-web-app`): **đúng 5 hunk**, không có sửa lỗi phụ nào.
+- `tools/patch-dsh-nopopup.mjs` chạy trên tarball gốc tạo ra file **byte-identical** (SHA-256 trùng) với bản đã vá thủ công cho cả ba file; chạy lần hai không đổi gì (idempotent); `--revert` khôi phục đúng byte gốc.
+- `node --check` trên cả ba file sau khi vá: exit 0.
+- `--check` trên bản cài thật: cả ba file báo "already patched".
+- `tools/audit-windows-spawns.mjs` (đã bỏ nội dung comment khỏi nguồn quét, và in tên hàm bao quanh) trên cây đã cài: **7 chỗ gọi chưa che**, tất cả đều không chạy trên Windows — `defaultProbeBwrap` và `defaultProbeSeatbelt` (Linux/macOS), `defaultProbeWindowsAcl` (docstring của chính nó: sản phẩm không bao giờ probe trên chuỗi win32), `querySystemctl` (Linux), `process-inspector` (`/bin/ps`), và `probe()` của `node-addon-system` (tầng landlock/seatbelt). Đường 5 là chỗ duy nhất vừa chạy trên Windows vừa thiếu cờ.
 
-**Vì sao cần script:** `npm i -g @deepseek-ai/dsh` ghi đè bundle published → bản vá mất. Script vá lại đúng bốn tham số, không đoán bừa (dạng bundle lạ thì dừng và không ghi), kiểm cú pháp bằng `node --check`, hỏng thì tự hoàn tác, và có `--revert`.
+**Vì sao cần script:** `npm i -g @deepseek-ai/dsh` ghi đè bundle published → bản vá mất. Script vá lại đúng năm tham số, không đoán bừa (dạng bundle lạ thì dừng và không ghi), kiểm cú pháp bằng `node --check`, hỏng thì tự hoàn tác, và có `--revert`.

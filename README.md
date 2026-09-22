@@ -69,7 +69,7 @@ do need the `connection` plugin to read its policy live, which is the small upst
 ### Suppressing console windows on Windows
 
 A GUI or editor host owns no console, so Windows gives every console program dsh starts a fresh console window —
-each tool call flashes one. Upstream 0.1.5-rc.2 misses four spawn paths:
+each tool call flashes one. Upstream 0.1.5-rc.2 misses five spawn paths:
 
 | Path | What is added |
 |---|---|
@@ -77,6 +77,7 @@ each tool call flashes one. Upstream 0.1.5-rc.2 misses four spawn paths:
 | `spawnInheritedJobProcess` → `CreateProcessAsUserW` | `CREATE_NO_WINDOW` |
 | `spawnCurrentTokenJobProcess` → `CreateProcessW` | `CREATE_NO_WINDOW` |
 | the Windows runner in `windows-job.ts` | `windowsHide: true` |
+| the browser opener in `web-app` | `windowsHide: true` |
 
 The fork's `my-custom` branch carries the fix. A copy installed with `npm i -g @deepseek-ai/dsh` returns to the
 published bundles on every upgrade, so re-apply it in place with:
@@ -87,12 +88,14 @@ node tools/patch-dsh-nopopup.mjs           # patch in place, keeping .nopopup.ba
 node tools/patch-dsh-nopopup.mjs --revert  # restore the backups
 ```
 
-The script edits only those four arguments, aborts without writing when a bundle no longer looks as expected,
+The script edits only those five arguments, aborts without writing when a bundle no longer looks as expected,
 syntax checks the result, and rolls back on failure. Restart dsh afterwards: the process that spawns children is
 the one that must be reloaded.
 
 Checked by unpacking the published `0.1.5-rc.2` tarballs from npm and diffing: the installed copy differs from
-the published one by exactly those four additions, and the script reproduces byte-identical files.
+the published one by exactly those five additions, and the script reproduces byte-identical files.
+`tools/audit-windows-spawns.mjs` lists every remaining spawn site in an installed tree and whether it passes
+`windowsHide`.
 
 ## Verify
 

@@ -7,13 +7,15 @@
  * A host that owns no console of its own (an editor extension, a GUI launcher,
  * a service) makes every subprocess open a fresh console window, because
  * Windows gives a console application a new console whenever its parent has
- * none. dsh 0.1.5-rc.1 has two such paths:
+ * none. dsh 0.1.5-rc.2 has three such groups of paths:
  *
  *   1. @deepseek-ai/dsh-win32-process calls CreateProcessW and
  *      CreateProcessAsUserW with CREATE_SUSPENDED (and
  *      CREATE_UNICODE_ENVIRONMENT) but without CREATE_NO_WINDOW.
  *   2. @deepseek-ai/dsh-subprocess-local spawns its Windows runner with
  *      child_process.spawn without windowsHide: true.
+ *   3. @deepseek-ai/dsh-web-app spawns the browser opener the same way, so
+ *      even `dsh web` opening a browser flashes a window.
  *
  * The fix belongs upstream (deepseek-harness commit "fix(subprocess): give
  * spawned processes no console window on Windows"). This script re-applies it
@@ -22,12 +24,13 @@
  *
  * What it changes
  * ---------------
- * Exactly four things, all additive:
+ * Exactly five things, all additive:
  *   - the creationFlags argument of both createRestrictedProcess call sites
  *     (which forwards into CreateProcessAsUserW) gains `| 0x08000000`;
  *   - the creationFlags argument of the api.createProcessW call site gains
  *     `| 0x08000000`;
- *   - the runner spawn options gain `windowsHide: true`.
+ *   - the Windows runner spawn options gain `windowsHide: true`;
+ *   - the browser opener spawn options in web-app gain `windowsHide: true`.
  *
  * It deliberately does NOT touch node-pty spawns: an interactive terminal is
  * meant to have a console.
@@ -46,9 +49,9 @@
  *   node tools/patch-dsh-nopopup.mjs --revert   # restore the .nopopup.bak copies
  *   node tools/patch-dsh-nopopup.mjs --root <dir> [--check]
  *
- * <dir> is the directory that contains dsh-win32-process/ and
- * dsh-subprocess-local/ (usually .../node_modules/@deepseek-ai). Defaults to
- * $DSH_NOPOPUP_ROOT, else the @deepseek-ai/dsh global install.
+ * <dir> is the directory that contains dsh-win32-process/,
+ * dsh-subprocess-local/ and dsh-web-app/ (usually .../node_modules/@deepseek-ai).
+ * Defaults to $DSH_NOPOPUP_ROOT, else the @deepseek-ai/dsh global install.
  *
  * The patched process is the one that spawns children, so restart DSH after
  * applying.
@@ -67,6 +70,7 @@ const BACKUP_SUFFIX = ".nopopup.bak";
 const FILES = {
 	win32: "dsh-win32-process/lib/index.js",
 	subprocess: "dsh-subprocess-local/lib/index.js",
+	webApp: "dsh-web-app/lib/index.js",
 };
 
 /* ------------------------------------------------------------------ parsing */
@@ -260,6 +264,39 @@ function patchSubprocessLocal(source) {
 	};
 }
 
+/**
+ * Rule 3 — the browser opener in web-app. It starts a console Node process, so
+ * `dsh web` opening a browser would flash a window on a console-less host.
+ */
+function patchWebApp(source) {
+	const notes = [];
+	const calls = findCalls(source, "spawn").filter((call) =>
+		call.args.some((arg) => arg.text.includes("BROWSER_OPENER_PROGRAM")),
+	);
+	if (calls.length !== 1) {
+		throw new Error(`expected 1 browser-opener spawn call, found ${calls.length}`);
+	}
+	const options = calls[0].args.at(-1);
+	if (options === undefined || !options.text.startsWith("{")) {
+		throw new Error("browser-opener spawn: options are not an object literal");
+	}
+	if (options.text.includes("windowsHide")) {
+		notes.push("browser opener: already passes windowsHide: true");
+		return { source, changed: false, notes };
+	}
+	const newline = source.indexOf("\n", options.start);
+	if (newline === -1 || newline > options.end) {
+		throw new Error("browser-opener spawn: options object does not span lines");
+	}
+	const indent = /^[ \t]*/.exec(source.slice(newline + 1))[0];
+	notes.push("browser opener: added windowsHide: true");
+	return {
+		source: `${source.slice(0, newline + 1)}${indent}windowsHide: true,\n${source.slice(newline + 1)}`,
+		changed: true,
+		notes,
+	};
+}
+
 /* ---------------------------------------------------------------------- io */
 
 function syntaxOk(path) {
@@ -314,12 +351,11 @@ function main(argv) {
 	const rootFlag = argv.indexOf("--root");
 	const root = resolveRoot(rootFlag === -1 ? undefined : argv[rootFlag + 1]);
 
-	const targets = Object.entries(FILES).map(([key, rel]) => ({
-		key,
-		rel,
-		path: join(root, rel),
-		patch: key === "win32" ? patchWin32 : patchSubprocessLocal,
-	}));
+	const targets = Object.entries(FILES).map(([key, rel]) => {
+		const patch = { win32: patchWin32, subprocess: patchSubprocessLocal, webApp: patchWebApp }[key];
+		if (patch === undefined) throw new Error(`no patch rule for ${key}`);
+		return { key, rel, path: join(root, rel), patch };
+	});
 
 	for (const target of targets) {
 		if (!existsSync(target.path)) {

@@ -68,7 +68,7 @@ nó thì những settings đó vẫn được lưu nhưng **không có tác dụ
 ### Bịt cửa sổ console trên Windows
 
 Host là GUI hoặc extension thì không có console, nên Windows cấp một cửa sổ console mới cho mọi tiến trình
-console mà dsh khởi chạy — mỗi lần gọi tool là một lần nhấp nháy. Bản 0.1.5-rc.2 bỏ sót bốn đường spawn:
+console mà dsh khởi chạy — mỗi lần gọi tool là một lần nhấp nháy. Bản 0.1.5-rc.2 bỏ sót năm đường spawn:
 
 | Đường | Thêm vào |
 |---|---|
@@ -76,6 +76,7 @@ console mà dsh khởi chạy — mỗi lần gọi tool là một lần nhấp 
 | `spawnInheritedJobProcess` → `CreateProcessAsUserW` | `CREATE_NO_WINDOW` |
 | `spawnCurrentTokenJobProcess` → `CreateProcessW` | `CREATE_NO_WINDOW` |
 | runner Windows trong `windows-job.ts` | `windowsHide: true` |
+| trình mở trình duyệt trong `web-app` | `windowsHide: true` |
 
 Nhánh `my-custom` của fork đã có bản vá. Bản cài bằng `npm i -g @deepseek-ai/dsh` sẽ quay về bundle đã phát
 hành ở mỗi lần nâng cấp, nên vá lại tại chỗ bằng:
@@ -86,12 +87,13 @@ node tools/patch-dsh-nopopup.mjs           # vá tại chỗ, giữ backup .nopo
 node tools/patch-dsh-nopopup.mjs --revert  # khôi phục backup
 ```
 
-Script chỉ sửa đúng bốn tham số đó, dừng lại và không ghi gì khi bundle không còn đúng dạng, kiểm tra cú pháp
+Script chỉ sửa đúng năm tham số đó, dừng lại và không ghi gì khi bundle không còn đúng dạng, kiểm tra cú pháp
 kết quả, và tự hoàn tác nếu hỏng. Sau đó phải khởi động lại dsh: tiến trình sinh ra tiến trình con mới là cái
 cần được nạp lại.
 
 Đã kiểm chứng bằng cách giải nén tarball `0.1.5-rc.2` từ npm rồi diff: bản đang cài khác bản đã phát hành
-đúng bốn thay đổi đó, và script tạo ra file **byte-identical**.
+đúng năm thay đổi đó, và script tạo ra file **byte-identical**.
+`tools/audit-windows-spawns.mjs` liệt kê mọi chỗ spawn còn lại trong một cây đã cài và chỗ nào có `windowsHide`.
 
 ## Kiểm chứng
 

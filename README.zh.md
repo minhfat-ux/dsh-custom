@@ -66,7 +66,7 @@ Settings → Plugins 下加入卡片、在右侧栏加入一个面板，并提�
 ### 消除 Windows 上的控制台窗口
 
 当宿主是 GUI 或编辑器扩展时，它自身没有控制台，Windows 会为 dsh 启动的每个控制台程序新建一个控制台
-窗口——每次工具调用都会闪出一个黑框。0.1.5-rc.2 遗漏了四条启动路径：
+窗口——每次工具调用都会闪出一个黑框。0.1.5-rc.2 遗漏了五条启动路径：
 
 | 路径 | 增加 |
 |---|---|
@@ -74,6 +74,7 @@ Settings → Plugins 下加入卡片、在右侧栏加入一个面板，并提�
 | `spawnInheritedJobProcess` → `CreateProcessAsUserW` | `CREATE_NO_WINDOW` |
 | `spawnCurrentTokenJobProcess` → `CreateProcessW` | `CREATE_NO_WINDOW` |
 | `windows-job.ts` 中的 Windows runner | `windowsHide: true` |
+| `web-app` 中的浏览器启动器 | `windowsHide: true` |
 
 fork 的 `my-custom` 分支已包含该修复。用 `npm i -g @deepseek-ai/dsh` 安装的副本在每次升级时都会回到已
 发布的 bundle，因此需要就地重新打补丁：
@@ -84,11 +85,12 @@ node tools/patch-dsh-nopopup.mjs           # 就地打补丁，保留 .nopopup.b
 node tools/patch-dsh-nopopup.mjs --revert  # 从备份恢复
 ```
 
-脚本只修改这四个参数；当 bundle 形态不符合预期时不写入任何内容，会校验语法，失败则回滚。之后必须重启
+脚本只修改这五个参数；当 bundle 形态不符合预期时不写入任何内容，会校验语法，失败则回滚。之后必须重启
 dsh：需要重新加载的是派生子进程的那个进程。
 
-验证方式：从 npm 解包 `0.1.5-rc.2` tarball 后 diff——已安装副本与已发布版本的差异恰好是这四处，且脚本
-生成的文件与原补丁逐字节一致。
+验证方式：从 npm 解包 `0.1.5-rc.2` tarball 后 diff——已安装副本与已发布版本的差异恰好是这五处，且脚本
+生成的文件与原补丁逐字节一致。`tools/audit-windows-spawns.mjs` 会列出已安装目录树中其余所有 spawn 位置
+以及它们是否传入 `windowsHide`。
 
 ## 验证
 
