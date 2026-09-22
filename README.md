@@ -66,6 +66,34 @@ way, so `startup` matches the feature.
 do need the `connection` plugin to read its policy live, which is the small upstream patch described in
 `CUSTOMIZE_PLAN.md` §10.3. Without it those settings persist but have no effect until a restart.
 
+### Suppressing console windows on Windows
+
+A GUI or editor host owns no console, so Windows gives every console program dsh starts a fresh console window —
+each tool call flashes one. Upstream 0.1.5-rc.2 misses four spawn paths:
+
+| Path | What is added |
+|---|---|
+| `spawnPipedProcess` → `CreateProcessAsUserW` | `CREATE_NO_WINDOW` |
+| `spawnInheritedJobProcess` → `CreateProcessAsUserW` | `CREATE_NO_WINDOW` |
+| `spawnCurrentTokenJobProcess` → `CreateProcessW` | `CREATE_NO_WINDOW` |
+| the Windows runner in `windows-job.ts` | `windowsHide: true` |
+
+The fork's `my-custom` branch carries the fix. A copy installed with `npm i -g @deepseek-ai/dsh` returns to the
+published bundles on every upgrade, so re-apply it in place with:
+
+```sh
+node tools/patch-dsh-nopopup.mjs --check   # report only; exits 1 while a path is unprotected
+node tools/patch-dsh-nopopup.mjs           # patch in place, keeping .nopopup.bak backups
+node tools/patch-dsh-nopopup.mjs --revert  # restore the backups
+```
+
+The script edits only those four arguments, aborts without writing when a bundle no longer looks as expected,
+syntax checks the result, and rolls back on failure. Restart dsh afterwards: the process that spawns children is
+the one that must be reloaded.
+
+Checked by unpacking the published `0.1.5-rc.2` tarballs from npm and diffing: the installed copy differs from
+the published one by exactly those four additions, and the script reproduces byte-identical files.
+
 ## Verify
 
 Everything was checked by running it, not by inspection. Each script prints `RESULT: PASS` or the failing

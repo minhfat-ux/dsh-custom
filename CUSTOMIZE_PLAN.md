@@ -878,3 +878,37 @@ Bài học: các **default của abstract class là một phần hợp đồng r
 **Nơi phải fork (không thể tránh):** chỉ `packages/client/connection/*` — vì `trustedHosts`/`cookieMaxAgeDays` bị chốt ở constructor và chỉ plugin sở hữu mới đổi được. Mọi thứ còn lại đều ở tầng plugin ngoài repo.
 
 **Hai ràng buộc triển khai đã biết, không phải lỗi:** profile cần `patchReload: startup` (mục 10.4); trang phải là loopback để settings ghi được (mục 7.7).
+
+## 11. Bịt cửa sổ console bật lên khi chạy (Windows)
+
+**Triệu chứng:** mỗi lần agent gọi tool, một cửa sổ command nhấp nháy rồi tắt. **Nguyên nhân:** Windows cấp một console mới cho tiến trình console khi tiến trình cha **không có** console — đúng trường hợp host là GUI/extension. `CREATE_SUSPENDED` không ngăn được việc đó; phải có `CREATE_NO_WINDOW` (`0x08000000`), còn `child_process.spawn` thì cần `windowsHide: true`.
+
+Bản 0.1.5-rc.2 thiếu cờ ở **bốn** đường:
+
+| # | Đường spawn | File nguồn | Trước | Sau |
+|---|---|---|---|---|
+| 1 | `spawnPipedProcess` → `CreateProcessAsUserW` | `win32-process/src/process.ts:236` | `0` | `CREATE_NO_WINDOW` |
+| 2 | `spawnInheritedJobProcess` → `CreateProcessAsUserW` | `process.ts:509` | `CREATE_SUSPENDED` | `… \| CREATE_NO_WINDOW` |
+| 3 | `spawnCurrentTokenJobProcess` → `CreateProcessW` | `process.ts:534` | `… \| CREATE_UNICODE_ENVIRONMENT` | `… \| CREATE_NO_WINDOW` |
+| 4 | runner Windows | `subprocess-local/src/windows-job.ts:144` | (không có) | `windowsHide: true` |
+
+Cố ý **không** đụng: `linux-scope.ts:477` cũng gọi `runnerStdio(spec, false)` nhưng đó là đường Linux (`windowsHide` vô nghĩa ở đó), và `nodePty.spawn` là terminal tương tác — terminal thì phải có console.
+
+**Bẫy đã gặp và cách xử lý**
+
+1. **Bản published mới hơn base của fork.** Bản cài toàn cục là rc.2, fork đang ở rc.1 → source fork chỉ có 2/3 đường của package win32. Chỉ lộ ra khi diff bản cài với tarball gốc trên npm (`npm pack @deepseek-ai/dsh-win32-process@0.1.5-rc.2`). Đã vá nốt đường 1 vào source (commit `11ba178`).
+2. **Bundler gộp cờ OR thành số thập phân.** `grep 0x08000000` trong bundle **không** thấy gì; phải tìm `134217732` (= `4 | CREATE_NO_WINDOW`) và `134218756` (= `1028 | CREATE_NO_WINDOW`). Kết luận "thiếu cờ" nếu chỉ grep dạng hex là sai.
+3. **Khớp nhầm định nghĩa hàm.** `findCalls("createRestrictedProcess")` bắt cả dòng `function createRestrictedProcess(api, …)`; không loại trừ thì script sẽ nối `| 0x08000000` vào **danh sách tham số**. Đã chặn bằng `/\bfunction\s*$/`.
+4. **Hai chỗ `runnerStdio(`.** Chỗ xuất hiện đầu tiên trong file là `runnerStdio(spec, false)` (linux-scope), không phải chỗ Windows (`spec, true, ignoredStdinFd ?? "pipe"`). Regex khớp-chỗ-đầu-tiên đã suýt vá nhầm đường Linux → phải neo theo `spec, true`.
+5. **`span()` trim làm mất dấu cách.** Kết quả `,0x08000000` thay vì `, 0x08000000` — vẫn chạy nhưng diff bẩn. Sửa bằng cách giữ khoảng trắng đầu/cuối khi splice.
+6. **Copy mà GUI thực sự nạp.** `@deepseek-ai/dsh-win32-process` resolve về `%APPDATA%\npm\node_modules\@deepseek-ai\dsh\node_modules\@deepseek-ai\…` (qua `~/.dsh/profiles/node_modules`), tức bản cài toàn cục — không phải fork. Phải vá đúng bản đó.
+7. **Phải restart.** File được vá lúc 13:05:58 nhưng tiến trình GUI đang chạy khởi động từ ba ngày trước → code cũ vẫn nằm trong RAM. Node nạp module một lần lúc boot.
+
+**Bằng chứng**
+
+- Test package: `vitest run packages/subprocess/win32-process` → **55/55 PASS**; các spec assert đúng cờ truyền cho từng entry point (trước khi sửa thì đỏ).
+- Diff bản cài với tarball published rc.2: **đúng 4 hunk**, không có sửa lỗi phụ nào.
+- `tools/patch-dsh-nopopup.mjs` chạy trên tarball gốc tạo ra file **byte-identical** (SHA-256 trùng) với bản đã vá thủ công; chạy lần hai không đổi gì (idempotent).
+- `--check` trên bản cài thật: cả hai file báo "already patched".
+
+**Vì sao cần script:** `npm i -g @deepseek-ai/dsh` ghi đè bundle published → bản vá mất. Script vá lại đúng bốn tham số, không đoán bừa (dạng bundle lạ thì dừng và không ghi), kiểm cú pháp bằng `node --check`, hỏng thì tự hoàn tác, và có `--revert`.

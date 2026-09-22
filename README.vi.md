@@ -65,6 +65,34 @@ khi listener của nó còn mở — boot fail. Host và cổng dù sao cũng ch
 chúng cần plugin `connection` đọc policy sống, tức bản vá nhỏ được mô tả ở `CUSTOMIZE_PLAN.md` §10.3. Không có
 nó thì những settings đó vẫn được lưu nhưng **không có tác dụng** cho tới khi restart.
 
+### Bịt cửa sổ console trên Windows
+
+Host là GUI hoặc extension thì không có console, nên Windows cấp một cửa sổ console mới cho mọi tiến trình
+console mà dsh khởi chạy — mỗi lần gọi tool là một lần nhấp nháy. Bản 0.1.5-rc.2 bỏ sót bốn đường spawn:
+
+| Đường | Thêm vào |
+|---|---|
+| `spawnPipedProcess` → `CreateProcessAsUserW` | `CREATE_NO_WINDOW` |
+| `spawnInheritedJobProcess` → `CreateProcessAsUserW` | `CREATE_NO_WINDOW` |
+| `spawnCurrentTokenJobProcess` → `CreateProcessW` | `CREATE_NO_WINDOW` |
+| runner Windows trong `windows-job.ts` | `windowsHide: true` |
+
+Nhánh `my-custom` của fork đã có bản vá. Bản cài bằng `npm i -g @deepseek-ai/dsh` sẽ quay về bundle đã phát
+hành ở mỗi lần nâng cấp, nên vá lại tại chỗ bằng:
+
+```sh
+node tools/patch-dsh-nopopup.mjs --check   # chỉ báo cáo; exit 1 khi còn đường chưa được che
+node tools/patch-dsh-nopopup.mjs           # vá tại chỗ, giữ backup .nopopup.bak
+node tools/patch-dsh-nopopup.mjs --revert  # khôi phục backup
+```
+
+Script chỉ sửa đúng bốn tham số đó, dừng lại và không ghi gì khi bundle không còn đúng dạng, kiểm tra cú pháp
+kết quả, và tự hoàn tác nếu hỏng. Sau đó phải khởi động lại dsh: tiến trình sinh ra tiến trình con mới là cái
+cần được nạp lại.
+
+Đã kiểm chứng bằng cách giải nén tarball `0.1.5-rc.2` từ npm rồi diff: bản đang cài khác bản đã phát hành
+đúng bốn thay đổi đó, và script tạo ra file **byte-identical**.
+
 ## Kiểm chứng
 
 Mọi thứ đều được kiểm bằng cách chạy thật, không phải bằng cách đọc code. Mỗi script in `RESULT: PASS` hoặc
